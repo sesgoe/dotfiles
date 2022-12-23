@@ -9,6 +9,10 @@ return require('packer').startup(function(use)
 
   -- Theme
   use 'navarasu/onedark.nvim'
+  use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
 
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
