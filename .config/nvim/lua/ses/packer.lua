@@ -56,4 +56,7 @@ return require('packer').startup(function(use)
 		  {'rafamadriz/friendly-snippets'},
 	  }
   }
+  use { 'onsails/lspkind-nvim' }
+  use { 'simrat39/rust-tools.nvim' }
+  use { 'p00f/nvim-ts-rainbow' }
 end)
