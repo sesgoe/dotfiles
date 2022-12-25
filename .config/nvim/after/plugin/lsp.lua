@@ -32,7 +32,6 @@ local rt = require('rust-tools')
 
 rt.setup(
   {
-    tools = { inlay_hints = { only_current_line = true } },
     server = {
       capabilities = capabilities,
       settings = {
