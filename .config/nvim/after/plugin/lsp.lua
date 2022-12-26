@@ -1,25 +1,27 @@
 require('mason').setup()
 require("mason-lspconfig").setup(
-  {
-    ensure_installed = {
-      "rust_analyzer",
-      "eslint",
-      "grammarly",
-      "jsonls",
-      "marksman",
-      "tsserver",
-      "yamlls",
-      "denols"
+    {
+        ensure_installed = {
+            "rust_analyzer",
+            "eslint",
+            "grammarly",
+            "jsonls",
+            "marksman",
+            "tsserver",
+            "yamlls",
+            "denols"
+        }
     }
-  }
 )
 
 local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+
 lspconfig.sumneko_lua.setup {
     capabilities = capabilities,
-
     settings = {
         Lua = {
             runtime = { version = 'LuaJIT' },
@@ -31,27 +33,26 @@ lspconfig.sumneko_lua.setup {
 local rt = require('rust-tools')
 
 rt.setup(
-  {
-    server = {
-      capabilities = capabilities,
-      settings = {
-        ["rust-analyzer"] = {
-          checkOnSave = {
-            allFeatures = true,
-            overrideCommand = {
-              'cargo',
-              'clippy',
-              '--message-format=json',
-              '--all-targets',
-              '--all-features'
+    {
+        server = {
+            capabilities = capabilities,
+            settings = {
+                ["rust-analyzer"] = {
+                    checkOnSave = {
+                        allFeatures = true,
+                        overrideCommand = {
+                            'cargo',
+                            'clippy',
+                            '--message-format=json',
+                            '--all-targets',
+                            '--all-features'
+                        }
+                    },
+                    rustfmt = { extraArgs = { "+nightly" } },
+                    cargo = { buildScripts = { enable = true } },
+                    inlayHints = { lifetimeElisionHints = { enable = "always" }, reborrowHints = { enable = "always" } }
+                }
             }
-          },
-          rustfmt = { extraArgs = { "+nightly" } },
-          cargo = { buildScripts = { enable = true } },
-          inlayHints = { lifetimeElisionHints = { enable = "always" }, reborrowHints = { enable = "always" } }
         }
-      }
     }
-  }
 )
-

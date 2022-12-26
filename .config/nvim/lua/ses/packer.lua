@@ -99,4 +99,6 @@ return require('packer').startup(function(use)
     }
     -- auto-pair parens + brackets
     use { "windwp/nvim-autopairs" }
+    use { "hrsh7th/cmp-emoji"}
+    use { "hrsh7th/cmp-nvim-lsp-signature-help"}
 end)
