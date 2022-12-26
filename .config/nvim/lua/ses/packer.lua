@@ -52,6 +52,8 @@ return require('packer').startup(function(use)
     use { 'windwp/nvim-ts-autotag' }
     -- cs' = change surrounding parens/brackets/etc to `'`
     use { 'tpope/vim-surround' }
+    -- better substitution
+    use { 'tpope/vim-abolish' }
 
     -- Language AST parser for 10x highlighting capabilities
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
