@@ -22,8 +22,8 @@ require('lualine').setup {
     lualine_b = {'branch', 'diff'},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {"os.date('%A %x %I:%M %p')", "require'lsp-status'.status()"},
-    lualine_z = {{'diagnostics', sources = { 'nvim_diagnostic' }}}
+    lualine_y = {"os.date('%A %x %I:%M %p')", {'diagnostics', sources = { 'nvim_diagnostic' }}},
+    lualine_z = {}
   },
   inactive_sections = {
     lualine_a = {},
