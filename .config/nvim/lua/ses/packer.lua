@@ -38,16 +38,24 @@ return require('packer').startup(function(use)
         },
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
+    -- LSP progress indicator bottom right
     use { 'j-hui/fidget.nvim' }
+    -- highlights word under cursor and all instances
     use { 'RRethy/vim-illuminate' }
+    -- shows line of open buffers @ top
     use {
         'akinsho/bufferline.nvim',
         tag = "v3.*",
         requires = 'kyazdani42/nvim-web-devicons'
     }
+    -- Auto-close HTML tags
+    use { 'windwp/nvim-ts-autotag' }
+    -- cs' = change surrounding parens/brackets/etc to `'`
+    use { 'tpope/vim-surround' }
 
     -- Language AST parser for 10x highlighting capabilities
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use { 'nvim-treesitter/nvim-treesitter-refactor' }
     -- LSP + Highlighting
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -80,11 +88,13 @@ return require('packer').startup(function(use)
     use { 'nvim-lua/lsp-status.nvim' }
     -- adds nifty matchup features for things like ifs, blocks, etc.
     use { 'andymass/vim-matchup' }
+    -- comment line bindings (based on LSP)
     use {
         'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup()
         end
     }
+    -- auto-pair parens + brackets
     use { "windwp/nvim-autopairs" }
 end)
