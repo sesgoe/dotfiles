@@ -48,7 +48,7 @@ nnoremap <silent> gs        <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gw        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 ]])
 
-vim.keymap.set('n', '<C-[>', [[:bd<CR>:bprevious<CR>]])
+-- vim.keymap.set('n', '<C-[>', [[:bd<CR>:bprevious<CR>]])
 
 vim.cmd([[
 nnoremap <silent> g[ <cmd>lua vim.diagnostic.goto_prev()<CR>
