@@ -10,3 +10,5 @@
 !/.tmux.conf
 !/.zshrc
 !/.bashrc
+!/.oh-my-zsh
+!/.p10k.zsh
