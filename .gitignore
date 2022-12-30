@@ -8,3 +8,5 @@
 /.config/nvim/plugin/*
 
 !/.tmux.conf
+!/.zshrc
+!/.bashrc

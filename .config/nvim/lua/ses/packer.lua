@@ -22,6 +22,10 @@ return require('packer').startup(function(use)
     -- git commands
     use('tpope/vim-fugitive')
 
+    use {
+        'kosayoda/nvim-lightbulb',
+        requires = 'antoinemadec/FixCursorHold.nvim',
+    }
 
     -- fuzzy finder
     use {
