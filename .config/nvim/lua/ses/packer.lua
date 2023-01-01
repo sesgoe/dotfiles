@@ -22,16 +22,11 @@ return require('packer').startup(function(use)
     -- git commands
     use('tpope/vim-fugitive')
 
-    use {
-        'kosayoda/nvim-lightbulb',
-        requires = 'antoinemadec/FixCursorHold.nvim',
-    }
-
     -- fuzzy finder
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     -- adds file tree
@@ -58,30 +53,31 @@ return require('packer').startup(function(use)
     use { 'tpope/vim-surround' }
     -- better substitution
     use { 'tpope/vim-abolish' }
+    use { 'christoomey/vim-tmux-navigator' }
 
     -- Language AST parser for 10x highlighting capabilities
-    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use { 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } }
     use { 'nvim-treesitter/nvim-treesitter-refactor' }
     -- LSP + Highlighting
     use {
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         }
     }
     -- Adds module icons to LSP Popups
@@ -92,6 +88,7 @@ return require('packer').startup(function(use)
     use { 'p00f/nvim-ts-rainbow' }
     -- use LSP status `diagnostics()` in places like lualine
     use { 'nvim-lua/lsp-status.nvim' }
+    use { 'glepnir/lspsaga.nvim' }
     -- adds nifty matchup features for things like ifs, blocks, etc.
     use { 'andymass/vim-matchup' }
     -- comment line bindings (based on LSP)
@@ -102,7 +99,6 @@ return require('packer').startup(function(use)
         end
     }
     -- auto-pair parens + brackets
-    use { "windwp/nvim-autopairs" }
-    use { "hrsh7th/cmp-emoji"}
-    use { "hrsh7th/cmp-nvim-lsp-signature-help"}
+    use { 'windwp/nvim-autopairs' }
+    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
 end)

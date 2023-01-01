@@ -30,27 +30,12 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.keymap.set('n', '<leader>t', [[:NvimTreeToggle<CR>]])
+vim.keymap.set('n', '<leader>e', [[:NvimTreeToggle<CR>]])
+vim.keymap.set('n', '<leader>t', [[:NvimTreeFocus<CR>]])
+
+vim.keymap.set('n', '<leader>sv', '<C-w>v') -- split window vertically
+vim.keymap.set('n', '<leader>sh', '<C-w>s') -- split window horizontally
+vim.keymap.set('n', '<leader>se', '<C-w>=') -- make split windows equal width/height
+vim.keymap.set('n', '<leader>sx', ':close<CR>') -- close current split window
 
 vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })]]
-
-vim.keymap.set('n', "ca", [[:lua vim.lsp.buf.code_action()<CR>]])
-vim.cmd([[
-nnoremap <silent> <c-i>     <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gi        <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gc        <cmd>lua vim.lsp.buf.incoming_calls()<CR>
-nnoremap <silent> gd        <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gn        <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> gs        <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gw        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-]])
-
--- vim.keymap.set('n', '<C-[>', [[:bd<CR>:bprevious<CR>]])
-
-vim.cmd([[
-nnoremap <silent> g[ <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> g] <cmd>lua vim.diagnostic.goto_next()<CR>
-]])
