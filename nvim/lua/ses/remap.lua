@@ -50,5 +50,11 @@ keymap.set('n', '<leader>sx', ':close<CR>') -- close current split window
 keymap.set('n', '<leader>e', [[:NvimTreeToggle<CR>]])
 keymap.set('n', '<leader>t', [[:NvimTreeFocus<CR>]])
 
+-- fugitive
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+
+-- undotree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
 -- auto-format files on save
 vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })]]

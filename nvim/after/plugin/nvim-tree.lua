@@ -11,6 +11,13 @@ require("nvim-tree").setup({
             git_placement = "after",
         },
     },
+    actions = {
+        open_file = {
+            window_picker = {
+                enable = false
+            }
+        }
+    }
 })
 
 -- auto-close if nvim-tree is last window

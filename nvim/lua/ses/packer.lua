@@ -5,22 +5,20 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+    use { 'wbthomason/packer.nvim' }
 
     -- Theme
-    use 'navarasu/onedark.nvim'
+    use { 'navarasu/onedark.nvim' }
     -- Bottom Status Bar
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+    use { 'kyazdani42/nvim-web-devicons' }
+    use { 'nvim-lualine/lualine.nvim' }
 
     -- harpoon to commonly used files
-    use('theprimeagen/harpoon')
+    use { 'theprimeagen/harpoon' }
     -- local file histories w/ branches
-    use('mbbill/undotree')
+    use { 'mbbill/undotree' }
     -- git commands
-    use('tpope/vim-fugitive')
+    use { 'tpope/vim-fugitive' }
 
     -- fuzzy finder
     use {
@@ -58,6 +56,7 @@ return require('packer').startup(function(use)
     -- Language AST parser for 10x highlighting capabilities
     use { 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } }
     use { 'nvim-treesitter/nvim-treesitter-refactor' }
+    use { 'nvim-treesitter/playground' }
     -- LSP + Highlighting
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -80,6 +79,7 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
         }
     }
+    use { "jose-elias-alvarez/typescript.nvim" }
     -- Adds module icons to LSP Popups
     use { 'onsails/lspkind-nvim' }
     -- rust-analyzer QoL

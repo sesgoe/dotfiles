@@ -1,6 +1,8 @@
 local cmp = require 'cmp'
 local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
 
+vim.opt.completeopt = "menu,menuone,noselect"
+
 cmp.setup(
     {
         snippet = {
@@ -8,6 +10,15 @@ cmp.setup(
                 require('luasnip').lsp_expand(args.body)
             end
         },
+        mapping = cmp.mapping.preset.insert({
+            ["<Tab>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+            ["<S-Tab>"] = cmp.mapping.select_next_item(), -- next suggestion
+            ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+            ["<C-f>"] = cmp.mapping.scroll_docs(4),
+            ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+            ["<C-e>"] = cmp.mapping.abort(), -- close completion window
+            ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        }),
         sources = {
             { name = 'nvim_lsp', priority = 10 },
             { name = 'nvim_lua', priority = 8 },
@@ -15,7 +26,6 @@ cmp.setup(
             { name = 'luasnip', priority = 7 },
             { name = 'buffer', priority = 5 },
             { name = 'path' },
-            { name = 'emoji' },
         },
         sorting = {
             priority_weight = 2,
@@ -33,7 +43,7 @@ cmp.setup(
                     with_text = true,
                     menu = ({
                         buffer = "",
-                        nvim_lsp = "",
+                        nvim_lsp = "λ",
                         luasnip = "[LuaSnip]",
                         nvim_lua = "[Lua]",
                         latex_symbols = "[Latex]",
