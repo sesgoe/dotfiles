@@ -85,10 +85,13 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-export PNPM_HOME="/home/ses/.local/share/pnpm"
+export PNPM_HOME="/home/sesgoe/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 . "$HOME/.cargo/env"
+
+# poetry
+export PATH="/home/sesgoe/.local/bin:$PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -114,3 +117,11 @@ export PATH="$PNPM_HOME:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# pnpm
+export PNPM_HOME="/home/sesgoe/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
