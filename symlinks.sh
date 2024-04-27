@@ -10,7 +10,8 @@
 
 # zshrc, tmux, etc. go in ~
 cd ~ && ln -s ~/dotfiles/.p10k.zsh .p10k.zsh
-cd ~ && ln -s ~/dotfiles/.profile .profile 
+cd ~ && ln -s ~/dotfiles/.profile .profile
 cd ~ && ln -s ~/dotfiles/.tmux.conf .tmux.conf
 cd ~ && ln -s ~/dotfiles/.zprofile .zprofile
 cd ~ && ln -s ~/dotfiles/.zshrc .zshrc
+cd ~ && ln -s ~/dotfiles/.wezterm.lua .wezterm.lua

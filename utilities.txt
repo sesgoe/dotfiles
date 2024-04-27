@@ -1,0 +1,9 @@
+
+# better syntax highlighting/formatting than 'cat'
+
+cargo install bat
+alias cat='bat'
+
+# better ls formatting
+cargo install exa
+alias ls='exa'
