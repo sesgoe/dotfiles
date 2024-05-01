@@ -77,7 +77,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search direnv poetry pyenv rust ripgrep vi-mode nvm)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search direnv poetry pyenv rust ripgrep zsh-vi-mode nvm ssh-agent)
+
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+zstyle :omz:plugins:ssh-agent identities ses-github-wsl
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,4 +141,3 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 eval "$(atuin init zsh)"
 
-set -o vi
