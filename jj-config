@@ -1,0 +1,16 @@
+[user]
+name = "Ses Goe"
+email = "jsesgoe@gmail.com"
+
+[signing]
+behavior = "drop"
+backend = "ssh"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGzLQ2LIi+S9O8oRV5B4NrdwxcXPqmdp5rpHdw5KqGPo jsesgoe@gmail.com"
+
+[git]
+sign-on-push = true
+push-new-bookmarks = true
+
+[ui]
+conflict-marker-style = "snapshot"
+

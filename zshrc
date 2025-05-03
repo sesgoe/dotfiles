@@ -77,10 +77,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search direnv poetry pyenv rust ripgrep zsh-vi-mode nvm ssh-agent)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search rust zsh-vi-mode nvm ssh-agent)
 
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
-zstyle :omz:plugins:ssh-agent identities ses-github-wsl
+zstyle :omz:plugins:ssh-agent identities id_ed25519
 
 source $ZSH/oh-my-zsh.sh
 
@@ -89,23 +89,12 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # nvim
-export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/opt/nvim-macos-arm64/bin"
 
 #export PNPM_HOME="/home/sesgoe/.local/share/pnpm"
 #export PATH="$PNPM_HOME:$PATH"
 
 . "$HOME/.cargo/env"
-
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -130,3 +119,6 @@ eval "$(atuin init zsh)"
 
 
 . "$HOME/.atuin/bin/env"
+
+# default editor -- useful for jj
+export EDITOR=nvim
