@@ -91,16 +91,11 @@ source $ZSH/oh-my-zsh.sh
 # nvim
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-export PNPM_HOME="/home/sesgoe/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+#export PNPM_HOME="/home/sesgoe/.local/share/pnpm"
+#export PATH="$PNPM_HOME:$PATH"
 
 . "$HOME/.cargo/env"
 
-# poetry
-export PATH="/home/sesgoe/.local/bin:$PATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -127,17 +122,11 @@ alias ls='exa'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# pnpm
-export PNPM_HOME="/home/sesgoe/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 eval "$(atuin init zsh)"
 
+
+. "$HOME/.atuin/bin/env"
