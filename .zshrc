@@ -1,9 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -15,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME=""   # prompt is Starship (end of file; config in ~/dotfiles/starship.toml)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -83,7 +77,7 @@ zstyle :omz:plugins:ssh-agent agent-forwarding yes
 zstyle :omz:plugins:ssh-agent identities ses-github-wsl
 
 # Docker Desktop links this completion into WSL, but the target only exists once Docker Desktop
-# is running; a dangling link makes compinit print errors (and trips p10k's instant prompt).
+# is running; a dangling link makes compinit print errors.
 [[ -e /usr/share/zsh/vendor-completions/_docker ]] || fpath=(${fpath:#/usr/share/zsh/vendor-completions})
 
 # jj completions, cached: generating them on every start costs a subprocess.
@@ -93,7 +87,7 @@ if [[ ! -s $ZSH/cache/completions/_jj || $commands[jj] -nt $ZSH/cache/completion
 fi
 
 source $ZSH/oh-my-zsh.sh
-# bash-style `complete` (aws-sso, peon) needs bashcompinit; oh-my-zsh already ran compinit.
+# bash-style `complete` (aws-sso) needs bashcompinit; oh-my-zsh already ran compinit.
 autoload -U +X bashcompinit && bashcompinit
 
 # User configuration
@@ -137,8 +131,6 @@ alias ls='exa'
 alias k='kubectl'
 alias tel='telepresence'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # pnpm
 export PNPM_HOME="/home/sesgoe/.local/share/pnpm"
@@ -237,7 +229,5 @@ export EDITOR=nvim
 # add datagrip to path
 export PATH="/opt/DataGrip-2025.1.3/bin:$PATH"
 
-# peon-ping quick controls
-alias peon="bash /home/sesgoe/.claude/hooks/peon-ping/peon.sh"
-[ -f /home/sesgoe/.claude/hooks/peon-ping/completions.bash ] && source /home/sesgoe/.claude/hooks/peon-ping/completions.bash
-
+# Prompt: Starship (~/.config/starship.toml -> ~/dotfiles/starship.toml).
+eval "$(starship init zsh)"

@@ -32,8 +32,10 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
+    context                 # hostname (always; see the context section)
     dir                     # current directory
-    vcs                     # git status
+    vcs                     # git status (hidden in jj repos)
+    my_jj                   # jj bookmark + change (custom, end of file)
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -84,7 +86,7 @@
     gcloud                  # google cloud cli account and project (https://cloud.google.com/)
     google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
     toolbox                 # toolbox name (https://github.com/containers/toolbox)
-    context                 # user@hostname
+    # context               # user@hostname (moved to the left prompt)
     nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
     nnn                     # nnn shell (https://github.com/jarun/nnn)
@@ -874,12 +876,8 @@
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n@%m'
   # Context format when in SSH without privileges: user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
-  # Default context format (no privileges, no SSH): user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
-
-  # Don't show context unless running with privileges or in SSH.
-  # Tip: Remove the next line to always show context.
-  typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+  # Default context format (no privileges, no SSH): hostname only, always shown (fleet machines).
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%m'
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
@@ -1645,3 +1643,47 @@ typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
+
+# --- jj segment (custom) ---------------------------------------------------------------------
+# In a jj repo, git is always on a detached HEAD, so hide p10k's vcs segment there and show
+# the nearest bookmark and the working-copy change instead:  main → @xylt  (red "conflict").
+# --ignore-working-copy keeps it fast (~10ms) and out of jj's op log, so edits made since the
+# last jj command aren't reflected until you run one.
+typeset -g _my_jj_root=
+
+function _my_jj_find_root() {
+  local dir=$PWD
+  while [[ $dir != / && ! -d $dir/.jj ]]; do dir=${dir:h}; done
+  if [[ -d $dir/.jj ]]; then _my_jj_root=$dir; else _my_jj_root=; fi
+  (( $+functions[p10k] )) && p10k display '1/left/vcs'=${${_my_jj_root:+hide}:-show}
+}
+
+function prompt_my_jj() {
+  [[ -n $_my_jj_root ]] || return
+  local line kind id bms conflict text= change= bookmark=
+  for line in "${(@f)$(jj log --ignore-working-copy --no-graph --color never -R $_my_jj_root \
+      -r '@ | heads(::@ & bookmarks())' \
+      -T 'if(current_working_copy, "@", "b") ++ "|" ++ change_id.shortest(4) ++ "|" ++ local_bookmarks.join(",") ++ "|" ++ if(conflict, "c", "-") ++ "\n"' 2>/dev/null)}"; do
+    IFS='|' read -r kind id bms conflict <<< $line
+    [[ -n $bms && -z $bookmark ]] && bookmark=$bms
+    if [[ $kind == @ ]]; then
+      change="%F{13}@$id%f"
+      [[ $conflict == c ]] && change+=" %F{196}conflict%f"
+    fi
+  done
+  [[ -n $change ]] || return
+  [[ -n $bookmark ]] && text="%F{76}$bookmark%f %F{244}→%f "
+  p10k segment -t "$text$change"
+}
+
+# chpwd covers every cd; the one-shot precmd covers the directory the shell starts in
+# (p10k display only works once p10k has drawn its first prompt).
+function _my_jj_first_prompt() {
+  add-zsh-hook -d precmd _my_jj_first_prompt
+  _my_jj_find_root
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _my_jj_find_root
+add-zsh-hook precmd _my_jj_first_prompt
+_my_jj_find_root
+

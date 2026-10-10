@@ -1,0 +1,130 @@
+# Starship prompt (https://starship.rs/config/). Linked to ~/.config/starship.toml.
+# Lean two-line layout carried over from powerlevel10k:
+#   ses-pc-w11 ~/personal/fleet main → @xylt !1 ?2 ............ took 3s  3:04:05 PM
+#   ❯
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+format = """
+$hostname\
+$directory\
+${custom.jj}\
+$git_branch\
+$git_state\
+$git_status\
+$fill\
+$status\
+$cmd_duration\
+$jobs\
+$kubernetes\
+$aws\
+$nodejs\
+$python\
+$golang\
+$rust\
+$deno\
+$java\
+$php\
+$time
+$character"""
+
+[fill]
+symbol = ' '
+
+[hostname]
+ssh_only = false             # always: tells fleet machines apart
+format = '[$hostname]($style) '
+style = '180'
+
+[directory]
+style = 'bold 39'
+read_only = ' ro'
+truncation_length = 5
+truncate_to_repo = false
+
+# jj: nearest bookmark and the working-copy change, in jj's own colors. --ignore-working-copy
+# keeps it fast and out of jj's op log; edits since the last jj command show in git_status.
+[custom.jj]
+command = '''jj log --ignore-working-copy --no-graph --reversed --color always -r 'heads(::@ & bookmarks()) | @' -T 'if(current_working_copy, if(local_bookmarks, local_bookmarks.join(",") ++ " ") ++ "@" ++ change_id.shortest(4) ++ if(conflict, label("conflict", " conflict")), local_bookmarks.join(",") ++ " → ")' 2>/dev/null'''
+when = true
+shell = ['bash', '--noprofile', '--norc']
+unsafe_no_escape = true     # keep jj's colors
+format = '($output )'
+
+# In jj repos git is on a detached HEAD: only_attached hides that branch display, while
+# git_status still shows the working copy's changes.
+[git_branch]
+only_attached = true
+format = '[$branch]($style) '
+style = '76'
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = '178'
+
+[status]
+disabled = false             # exit code, only when non-zero
+format = '[✘ $status]($style) '
+style = '196'
+
+[cmd_duration]
+min_time = 3000
+format = '[took $duration]($style) '
+style = '101'
+
+[jobs]
+format = '[$symbol$number]($style) '
+style = '70'
+
+[kubernetes]
+disabled = false             # only in folders that look like k8s work
+detect_files = ['kustomization.yaml', 'Chart.yaml', 'skaffold.yaml', 'helmfile.yaml']
+detect_folders = ['k8s', 'kubernetes', 'helm', 'charts']
+format = '[⎈ $context( $namespace)]($style) '
+style = '134'
+
+[aws]
+# Only when a profile is chosen (AWS_PROFILE, aws-sso-profile); the config's default region alone stays hidden.
+format = '([aws $profile]($style) )'
+force_display = true         # show the chosen profile even before credentials load
+style = '208'
+
+[nodejs]
+format = '[node $version]($style) '
+style = '70'
+
+[python]
+format = '[py $version( $virtualenv)]($style) '
+style = '37'
+
+[golang]
+format = '[go $version]($style) '
+style = '37'
+
+[rust]
+format = '[rs $version]($style) '
+style = '37'
+
+[deno]
+format = '[deno $version]($style) '
+style = '37'
+
+[java]
+format = '[java $version]($style) '
+style = '32'
+
+[php]
+format = '[php $version]($style) '
+style = '99'
+
+[time]
+disabled = false
+format = '[$time]($style)'
+time_format = '%-I:%M:%S %p'
+style = '66'
+
+[character]
+success_symbol = '[❯](76)'
+error_symbol = '[❯](196)'
+vimcmd_symbol = '[❮](76)'
