@@ -130,3 +130,4 @@ if [[ -n $CLAUDECODE ]]; then
 fi
 
 (( $+commands[starship] )) && eval "$(starship init zsh)"   # macOS: brew install starship
+export PATH=$PATH:$HOME/.maestro/bin
