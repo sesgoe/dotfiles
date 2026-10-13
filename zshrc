@@ -122,10 +122,11 @@ fi
 # --- Agent shells ---------------------------------------------------------------------------
 # Claude Code sets CLAUDECODE=1 and snapshots this shell for its Bash tool. Make it behave like a
 # plain shell there: an unmatched glob passes through instead of aborting the command, `=word`
-# stays a word instead of a command lookup (`echo ====`), and ls/cat are the real tools whose
-# output scripts can parse.
+# stays a word instead of a command lookup (`echo ====`), an unquoted $VAR splits into words as
+# in bash (`curl $flags url` passes each flag), and ls/cat are the real tools whose output scripts
+# can parse.
 if [[ -n $CLAUDECODE ]]; then
-  setopt no_nomatch no_equals
+  setopt no_nomatch no_equals sh_word_split
   unalias ls cat 2>/dev/null
 fi
 
