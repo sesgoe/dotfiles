@@ -46,7 +46,10 @@ else
   link nvim "$HOME/.config/nvim"
 fi
 case "$(uname -s)" in
-  Linux)  source_from profile "$HOME/.profile" ;;   # sh and bash login shells; macOS uses zprofile only
+  Linux)  # macOS logs in with zsh only
+    source_from profile "$HOME/.profile"   # sh and bash login shells
+    source_from bashrc  "$HOME/.bashrc"    # interactive bash
+    ;;
   Darwin) link wezterm.lua "$HOME/.wezterm.lua" ;;
 esac
 
